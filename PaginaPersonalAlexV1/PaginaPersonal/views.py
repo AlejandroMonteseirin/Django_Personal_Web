@@ -22,15 +22,15 @@ def index(request):
     print(ip)
 
     datosip=getGeoDatos(ip)
-    print(datosip['type']!=None)
     if datosip['type']!=None:
         #fechas
         today_min = datetime.datetime.combine(datetime.date.today(), datetime.time.min)
         today_max = datetime.datetime.combine(datetime.date.today(), datetime.time.max)
-        conexion=Conexiones(fecha__range=(today_min, today_max),ip=datosip['ip'])
+        conexion=Conexiones.objects.filter(fecha__range=(today_min, today_max),ip=datosip['ip'])
         if(len(conexion)>0):
-            conexion(numeroConexiones=conexion['numeroConexiones']+1)
-            conexion.save()
+            numerodeconexiones=conexion[0].numeroConexiones+1
+            actualizar=Conexiones(pk=conexion[0].pk,numeroConexiones=numerodeconexiones,fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=datosip['latitude']+datosip['longitude'])
+            actualizar.save()
         else:
             c = Conexiones(numeroConexiones='1', fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=datosip['latitude']+datosip['longitude'])
             c.save()
