@@ -23,3 +23,9 @@
   .fa:hover {
     opacity: 0.7;
 }
+.titulo{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: 500;
+  font-size: 4em;
+  color: black; font-family: 'Droid serif', serif; font-size: 4em; font-weight: 400; font-style: italic; line-height: 44px;  text-align: left;
+}
