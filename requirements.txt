@@ -1,5 +1,5 @@
 django-heroku
-Django==2.1.7
+Django==2.1.11
 gunicorn 
 psycopg2
 django-mathfilters
