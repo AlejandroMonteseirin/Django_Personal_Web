@@ -1,5 +1,7 @@
 
 {% load staticfiles %}
+{% load mathfilters %}
+
 <head>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
@@ -33,8 +35,45 @@
         </div>
     </div>
     <div class="col m12 l6">
-        <div class="collection">
-        </div>
+        
+    <h5> CriptoMonedas: </h5>
+    <br>
+    <table class="striped">
+        <thead>
+          <tr>
+              <th>Criptomoneda</th>
+              <th>Cantidad</th>
+              <th>Precio ud</th>
+              <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Ethereum</td>
+            <td>{{ethereumcoins}}</td>
+            <td>{{ethereum}}€</td>
+            <td>{{ ethereumcoins |mul:ethereum }}€</td>
+
+          </tr>
+          <tr>
+            <td>Litecoin</td>
+            <td>{{litecoins}}</td>
+            <td>{{lite}}€</td>
+            <td>{{ litecoins |mul:lite }}€</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+            <td><b>{{ total }}€</b></td>
+
+
+          </tr>
+        </tbody>
+    </table>
+    <ul>
     </div>
 </div>
 <script>M.AutoInit();</script>

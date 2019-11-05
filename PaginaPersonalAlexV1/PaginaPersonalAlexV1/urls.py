@@ -21,5 +21,6 @@ from PaginaPersonal.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('llamada',llamada,name="llamada"),
 
 ]
