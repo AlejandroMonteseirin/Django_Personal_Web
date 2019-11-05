@@ -29,7 +29,7 @@ def index(request):
         conexion=Conexiones.objects.filter(fecha__range=(today_min, today_max),ip=datosip['ip'])
         if(len(conexion)>0):
             numerodeconexiones=conexion[0].numeroConexiones+1
-            actualizar=Conexiones(pk=conexion[0].pk,numeroConexiones=numerodeconexiones,fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=datosip['latitude']+datosip['longitude'])
+            actualizar=Conexiones(pk=conexion[0].pk,numeroConexiones=numerodeconexiones,fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=datosip['latitude']+","+datosip['longitude'])
             actualizar.save()
         else:
             c = Conexiones(numeroConexiones='1', fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=datosip['latitude']+datosip['longitude'])
