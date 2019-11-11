@@ -12,7 +12,6 @@ def index(request):
     ethereum=get_latest_crypto_price('ETH')
     litecoin=get_latest_crypto_price('LTC')
 
-    context = {'ethereum': ethereum,'ethereumcoins':0.2470,'lite': litecoin,'litecoins':0.5584,'total':ethereum*0.2470+litecoin*0.5584}
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -35,6 +34,28 @@ def index(request):
             c = Conexiones(numeroConexiones='1', fecha=datetime.datetime.now(),ip=datosip['ip'],pais=datosip['country_name'],ciudad=datosip['city'],postcode=datosip['zip'],coordenadas=str(datosip['latitude'])+','+str(datosip['longitude']))
             c.save()
     
+    conexiones = list(Conexiones.objects.all())
+    print(conexiones)
+    charConexiones={}
+    for conexion in conexiones:
+        if str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day) in charConexiones:
+            charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]=charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]+1
+        else:
+            charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]=1
+    print(charConexiones)
+    stringparaelchar="["
+    index=0
+    for key in charConexiones:
+        if(index!=0):
+            stringparaelchar=stringparaelchar+","
+        stringparaelchar=stringparaelchar+"[ new Date("+str(key)+"), "+str(charConexiones[key])+"]"
+        index=1
+    stringparaelchar=stringparaelchar+"]"
+    print(stringparaelchar)
+
+    #conexiones="[[ new Date(2013, 9, 4), 6 ],[ new Date(2013, 9, 5), 3],[ new Date(2013, 9, 12), 1 ],[ new Date(2013, 9, 13), 2 ]]"
+    context = {'ethereum': ethereum,'ethereumcoins':0.2470,'lite': litecoin,'litecoins':0.5584,'total':ethereum*0.2470+litecoin*0.5584,"conexiones":stringparaelchar}
+
     return render(request, 'index.html',context)
 
 
