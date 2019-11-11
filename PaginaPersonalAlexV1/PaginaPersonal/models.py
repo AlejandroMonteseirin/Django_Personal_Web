@@ -12,4 +12,4 @@ class Conexiones(models.Model):
     postcode = models.TextField(max_length=100, blank=False)
     coordenadas = models.TextField(max_length=100, blank=False)
     def __str__(self):
-        return '{} in {}'.format(self.ip, self.postcode)
+        return '{} in {},{},{} at {}'.format(self.ip, self.postcode,self.ciudad,self.pais,self.fecha)
