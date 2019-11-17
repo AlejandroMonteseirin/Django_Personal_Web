@@ -1,20 +1,39 @@
 from django.shortcuts import render
+from chatterbot import ChatBot
 
 # Create your views here.
 from django.http import HttpResponse
 import requests
 from .models import Conexiones
 import datetime
+from django.conf import settings
 
 
 def index(request):
-    #esto es como el controlador/servicios
+    if request.POST.get('mensaje'):
+        chatbot = ChatBot(**settings.CHATTERBOT)
+        if( 'conversacion' in request.session):
+            conversacionbot=request.session['conversacion']
+            conversacionbot.append(request.POST.get('mensaje'))
+            conversacionbot.append(str(chatbot.get_response(str(request.POST.get('mensaje')))))
+            request.session['conversacion']=conversacionbot
+
+        else:
+            conversacionbot=[]
+            conversacionbot.append(request.POST.get('mensaje'))
+            conversacionbot.append(str(chatbot.get_response(str(request.POST.get('mensaje')))))
+            request.session['conversacion']=conversacionbot
+    else:
+        conversacionbot=["Saludos soy la IA de alex, en que puedo ayudarte"]
+        request.session['conversacion']=conversacionbot
+
+
     ethereum=get_latest_crypto_price('ETH')
     litecoin=get_latest_crypto_price('LTC')
 
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
+    if x_forwarded_for and x_forwarded_for is not None:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
@@ -54,7 +73,7 @@ def index(request):
     print(stringparaelchar)
 
     #conexiones="[[ new Date(2013, 9, 4), 6 ],[ new Date(2013, 9, 5), 3],[ new Date(2013, 9, 12), 1 ],[ new Date(2013, 9, 13), 2 ]]"
-    context = {'ethereum': ethereum,'ethereumcoins':0.2470,'lite': litecoin,'litecoins':0.5584,'total':ethereum*0.2470+litecoin*0.5584,"conexiones":stringparaelchar}
+    context = {'ethereum': ethereum,'ethereumcoins':0.2470,'lite': litecoin,'litecoins':0.5584,'total':ethereum*0.2470+litecoin*0.5584,"conexiones":stringparaelchar,"chat":conversacionbot}
 
     return render(request, 'index.html',context)
 

@@ -48,7 +48,7 @@
 <body>
 
 <div class="card-panel center teal lighten-3 row">
-<div class="col m7 offset-m1"> <h5 class="titulo">Pagina Personal de Alejandro Monteseirin  </div>
+<div class="col m8"> <h5 class="titulo">Pagina Personal de Alejandro Monteseirin  </div>
 <div class="col m3 offset-m1" style="text-align:right"> 
     <a href="https://twitter.com/alexmp001" class="fa fa-twitter"></a>
     <a href="#" class="fa fa-linkedin"></a>
@@ -108,7 +108,32 @@
     <ul>
     </div>
 </div>
-    <div id="calendar_basic" style="width: 1000px; height: 350px;"></div>
+<div class="row">
+  <div class="col m6 s12">
+  </div>
+  <div class="col m6 s12">
+    <h5> IA de Alex: </h5>
+    <div class="chat">
+      {% for message in chat %}
+      <div class="{% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %}">{{message}}</div>
+      {% endfor %}
+    </div>
+    <form method="POST">{% csrf_token %}
+      <div class="row">
+        <div class="input-field col s8">
+          <textarea  class="materialize-textarea" name="mensaje"></textarea>
+        </div>
+        <div class="col s4 submit">
+          <input type="submit" value="Enviar mensaje a la IA" />
+        </div>
+      </div>
+      <p class="explicacion">
+        *Las respuestas de la IA estan basadas en <b>Machine Learning</b> y estan basadas en las conversaciones de la IA con los usuarios, nunca deben ser tomadas en serio, no nos hacemos responsables de los posibles insultos o respuestas ilogicas que pueda recibir 
+      </p>
+    </form>
+  </div>
+</div>
+<div id="calendar_basic" style="width: 1000px; height: 350px;"></div>
 
 <script>M.AutoInit();</script>
 </body>

@@ -4,3 +4,5 @@ gunicorn
 psycopg2
 django-mathfilters
 requests
+django chatterbot
+chatterbot-corpus
