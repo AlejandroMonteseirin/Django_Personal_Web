@@ -10,5 +10,5 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         chatbot = ChatBot(**settings.CHATTERBOT,storage_adapter="chatterbot.storage.DjangoStorageAdapter")
         trainer = ChatterBotCorpusTrainer(chatbot)
-        trainer.train("./spanish/")
+        trainer.train("../../.././spanish/")
         self.stdout.write("Entrenadismo")
