@@ -11,7 +11,7 @@ from django.conf import settings
 
 def index(request):
     if request.POST.get('mensaje'):
-        chatbot = ChatBot(**settings.CHATTERBOT)
+        chatbot = ChatBot(**settings.CHATTERBOT,storage_adapter="chatterbot.storage.DjangoStorageAdapter")
         if( 'conversacion' in request.session):
             conversacionbot=request.session['conversacion']
             conversacionbot.append(request.POST.get('mensaje'))
