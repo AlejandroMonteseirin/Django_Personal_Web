@@ -11,5 +11,6 @@ class Command(BaseCommand):
         chatbot = ChatBot(**settings.CHATTERBOT,storage_adapter="chatterbot.storage.DjangoStorageAdapter")
         trainer = ChatterBotCorpusTrainer(chatbot)
         print(os.path.dirname(os.path.abspath(__file__)))
-        trainer.train("./spanish/")
+        print(os.path.realpath(__file__))
+        trainer.train("/app/PaginaPersonalAlexV1/PaginaPersonal/management/commands/spanish/")
         self.stdout.write("Entrenadismo")
