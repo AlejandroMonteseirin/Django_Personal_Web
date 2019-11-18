@@ -8,7 +8,6 @@ from .models import Conexiones
 import datetime
 from django.conf import settings
 
-
 def index(request):
     if request.POST.get('mensaje'):
         chatbot = ChatBot(**settings.CHATTERBOT,storage_adapter="chatterbot.storage.DjangoStorageAdapter")
@@ -95,3 +94,4 @@ def getGeoDatos(ip):
     response = requests.get(url)
     response_json = response.json()
     return response_json
+
