@@ -57,9 +57,9 @@ def index(request):
     charConexiones={}
     for conexion in conexiones:
         if str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day) in charConexiones:
-            charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]=charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]+1
+            charConexiones[str(conexion.fecha.year)+", "+str(int(conexion.fecha.month)-1)+", "+str(conexion.fecha.day)]=charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]+1
         else:
-            charConexiones[str(conexion.fecha.year)+", "+str(conexion.fecha.month)+", "+str(conexion.fecha.day)]=1
+            charConexiones[str(conexion.fecha.year)+", "+str(int(conexion.fecha.month)-1)+", "+str(conexion.fecha.day)]=1
     print(charConexiones)
     stringparaelchar="["
     index=0
